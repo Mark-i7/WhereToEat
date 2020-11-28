@@ -3,8 +3,6 @@ package com.example.wheretoeat
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.viewModels
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,7 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.wheretoeat.data.RestaurantViewModel
+import com.example.wheretoeat.data.RestaurantDataViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val restaurantViewModel:RestaurantViewModel by viewModels()
-        restaurantViewModel.generateDummyData(10)
+        val restaurantDataViewModel:RestaurantDataViewModel by viewModels()
+        restaurantDataViewModel.generateDummyData(10)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

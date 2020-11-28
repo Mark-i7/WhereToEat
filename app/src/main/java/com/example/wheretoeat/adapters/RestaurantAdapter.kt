@@ -7,12 +7,12 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.R
 import com.example.wheretoeat.models.Restaurant
-import com.example.wheretoeat.ui.restaurants.RestaurantsFragment
+import com.example.wheretoeat.ui.restaurants.RestaurantFragment
 
 
 class RestaurantAdapter(
     private var restaurantList: List<Restaurant>,
-    private val listener: RestaurantsFragment
+    private val listener: RestaurantFragment
 ): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>(){
 
 
@@ -55,12 +55,17 @@ class RestaurantAdapter(
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentItem = restaurantList[position]
         holder.image.setImageResource(R.drawable.ic_menu_camera)
-        holder.r_name.text=currentItem.toString()
-        holder.address.text=currentItem.toString()
-        holder.price.text=currentItem.toString()
+        holder.r_name.text=currentItem.name
+        holder.address.text=currentItem.address
+        holder.price.text=currentItem.price.toString()
     }
+
     override fun getItemCount() = restaurantList.size
 
+    fun setData(newList: List<Restaurant>){
+        restaurantList=newList
+        notifyDataSetChanged()
+    }
 
 }
 interface OnItemClickListener {
