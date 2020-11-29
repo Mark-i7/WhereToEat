@@ -10,17 +10,17 @@ import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.ui.restaurants.RestaurantFragment
 
 
-class RestaurantAdapter(
-        private var restaurantList: List<Restaurant>,
-        private val listener: RestaurantFragment
-): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>(){
+class RestaurantAdapter(    private val  listener: OnItemClickListener): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>(){
 
+    //private var restaurantList: Collections.emptyList<Restaurant>()
+    private var restaurantList = emptyList<Restaurant>()
 
     inner class RestaurantViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
         val image: ImageView = itemView.findViewById(R.id.imageView)
         val r_name: TextView = itemView.findViewById(R.id.r_name)
         val address: TextView = itemView.findViewById(R.id.address)
         val price: TextView = itemView.findViewById(R.id.price)
+        val love_it : ImageView=itemView.findViewById(R.id.love_it)
 
 
         init {
@@ -46,24 +46,26 @@ class RestaurantAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
-                R.layout.list_item,
-                parent, false
+            R.layout.list_item,
+            parent, false
         )
         return RestaurantViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentItem = restaurantList[position]
-        holder.image.setImageResource(R.drawable.ic_menu_camera)
+        holder.image.setImageResource(R.drawable.foods)
         holder.r_name.text=currentItem.name
         holder.address.text=currentItem.address
         holder.price.text=currentItem.price.toString()
+        holder.love_it.setImageResource(R.drawable.heart)
+
     }
 
     override fun getItemCount() = restaurantList.size
 
-    fun setData(newList: List<Restaurant>){
-        restaurantList=newList
+    fun setData(restaurants: List<Restaurant>) {
+        this.restaurantList = restaurants
         notifyDataSetChanged()
     }
 

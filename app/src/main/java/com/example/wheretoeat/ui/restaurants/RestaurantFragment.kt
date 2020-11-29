@@ -38,19 +38,20 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
     private lateinit var restaurantAdapter: RestaurantAdapter
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
 
         val root = inflater.inflate(R.layout.fragment_restaurants, container, false)
 
-        restaurantAdapter = RestaurantAdapter(restaurantDataViewModel.getAllRestaurants(), this)
+        //restaurantAdapter = RestaurantAdapter(restaurantDataViewModel.getAllRestaurants(), this)
+        restaurantAdapter= RestaurantAdapter(this)
         restaurantList = root.findViewById(R.id.recyclerView)
         restaurantList.adapter = restaurantAdapter
         restaurantList.layoutManager = LinearLayoutManager(activity)
-        restaurantList.setHasFixedSize(true)
+        //restaurantList.setHasFixedSize(true)
 
         return root
     }
@@ -62,11 +63,18 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
             restaurantViewModel =ViewModelProvider(requireActivity(), viewModelFactory).get(RestaurantViewModel::class.java)
             lateinit var mylist:List<Restaurant>
 
-            restaurantViewModel.loadRestaurants("London")
+            restaurantViewModel.loadRestaurants("Washington")
 
             restaurantViewModel.response.observe(requireActivity(), { restaurants ->
                 mylist=restaurants
-                Log.d("apirespons", restaurants[10].toString())
+                if(restaurants.size == 0) {
+                    Toast.makeText(context,"Sorry I can't find restaurants in this city",Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(context,"I found: "+restaurants.size.toString()+" restaurants",Toast.LENGTH_SHORT).show()
+                    restaurantAdapter.setData(restaurants)
+                }
+                Log.d("apirespons", restaurants.toString())
+
             })
             super.onViewCreated(view, savedInstanceState)
         }
@@ -85,15 +93,15 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
             builder.apply {
                 setTitle("Are you sure you want to delete this item?")
                 setPositiveButton("Yes",
-                        DialogInterface.OnClickListener { dialog, od ->
-                            restaurantDataViewModel.removeRestaurant(position)
-                            restaurantAdapter.notifyDataSetChanged()
-                            Toast.makeText(activity, "Item $position Deleted", Toast.LENGTH_SHORT).show()
-                        })
+                    DialogInterface.OnClickListener { dialog, od ->
+                        restaurantDataViewModel.removeRestaurant(position)
+                        restaurantAdapter.notifyDataSetChanged()
+                        Toast.makeText(activity, "Item $position Deleted", Toast.LENGTH_SHORT).show()
+                    })
                 setNegativeButton("No",
-                        DialogInterface.OnClickListener { dialog, id ->
-                            Toast.makeText(activity, "Delete cancelled", Toast.LENGTH_SHORT).show()
-                        })
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(activity, "Delete cancelled", Toast.LENGTH_SHORT).show()
+                    })
             }
             builder.create()
         }

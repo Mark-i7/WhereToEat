@@ -23,21 +23,21 @@ class RestaurantViewModel(private val repository: RestaurantApiRepository) : Vie
 
         for(i in restaurantsByCity.restaurants){
             val restaurant = Restaurant (
-                    i.id,
-                    i.name,
-                    i.address,
-                    i.city,
-                    i.state,
-                    i.area,
-                    i.postal_code,
-                    i.country,
-                    i.phone,
-                    i.lat,
-                    i.lng,
-                    i.price,
-                    i.reserve_url,
-                    i.mobile_reserve_url,
-                    i.image_url
+                i.id,
+                i.name,
+                i.address,
+                i.city,
+                i.state,
+                i.area,
+                i.postal_code,
+                i.country,
+                i.phone,
+                i.lat,
+                i.lng,
+                i.price,
+                i.reserve_url,
+                i.mobile_reserve_url,
+                i.image_url
             )
             list.add(restaurant)
         }
