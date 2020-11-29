@@ -22,4 +22,5 @@
         android:name="com.example.wheretoeat.ui.favorites.FavoritesFragment"
         android:label="@string/menu_favorites"
         tools:layout="@layout/fragment_favorites" />
+
 </navigation>

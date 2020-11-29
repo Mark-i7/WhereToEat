@@ -66,7 +66,7 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
 
             restaurantViewModel.response.observe(requireActivity(), { restaurants ->
                 mylist=restaurants
-                Log.d("apirespons", restaurants[1].toString())
+                Log.d("apirespons", restaurants[10].toString())
             })
             super.onViewCreated(view, savedInstanceState)
         }
@@ -85,15 +85,15 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
             builder.apply {
                 setTitle("Are you sure you want to delete this item?")
                 setPositiveButton("Yes",
-                    DialogInterface.OnClickListener { dialog, od ->
-                        restaurantDataViewModel.removeRestaurant(position)
-                        restaurantAdapter.notifyDataSetChanged()
-                        Toast.makeText(activity, "Item $position Deleted", Toast.LENGTH_SHORT).show()
-                    })
+                        DialogInterface.OnClickListener { dialog, od ->
+                            restaurantDataViewModel.removeRestaurant(position)
+                            restaurantAdapter.notifyDataSetChanged()
+                            Toast.makeText(activity, "Item $position Deleted", Toast.LENGTH_SHORT).show()
+                        })
                 setNegativeButton("No",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(activity, "Delete cancelled", Toast.LENGTH_SHORT).show()
-                    })
+                        DialogInterface.OnClickListener { dialog, id ->
+                            Toast.makeText(activity, "Delete cancelled", Toast.LENGTH_SHORT).show()
+                        })
             }
             builder.create()
         }

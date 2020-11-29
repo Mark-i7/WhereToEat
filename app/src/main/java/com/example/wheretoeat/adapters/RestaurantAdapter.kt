@@ -11,8 +11,8 @@ import com.example.wheretoeat.ui.restaurants.RestaurantFragment
 
 
 class RestaurantAdapter(
-    private var restaurantList: List<Restaurant>,
-    private val listener: RestaurantFragment
+        private var restaurantList: List<Restaurant>,
+        private val listener: RestaurantFragment
 ): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>(){
 
 
@@ -46,8 +46,8 @@ class RestaurantAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.list_item,
-            parent, false
+                R.layout.list_item,
+                parent, false
         )
         return RestaurantViewHolder(itemView)
     }
