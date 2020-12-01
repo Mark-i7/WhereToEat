@@ -70,7 +70,6 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
                 if(restaurants.size == 0) {
                     Toast.makeText(context,"Sorry I can't find restaurants in this city",Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(context,"I found: "+restaurants.size.toString()+" restaurants",Toast.LENGTH_SHORT).show()
                     restaurantAdapter.setData(restaurants)
                 }
                 Log.d("apirespons", restaurants.toString())
@@ -83,7 +82,7 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
     override fun onItemClick(position: Int) {
         Toast.makeText(activity, "Item $position clicked", Toast.LENGTH_SHORT).show()
         val bundle = bundleOf("position" to position)
-        requireView().findNavController().navigate(R.id.nav_favorites, bundle)
+        requireView().findNavController().navigate(R.id.nav_details, bundle)
     }
 
     override fun onItemLongClick(position: Int) {

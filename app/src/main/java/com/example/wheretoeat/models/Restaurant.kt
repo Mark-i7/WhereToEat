@@ -1,6 +1,12 @@
 package com.example.wheretoeat.models
 
-class Restaurant(var id:Long,
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName="restaurant_table")
+data class Restaurant(
+                 @PrimaryKey(autoGenerate = false)
+                 var id:Long,
                  var name:String,
                  var address:String,
                  val city:String,
@@ -16,9 +22,5 @@ class Restaurant(var id:Long,
                  val mobile_reserve_url: String,
                  val image_url:String
                  ) {
-
-    override fun toString(): String {
-        return "Restaurant(id=$id, name='$name', address='$address', city='$city', state='$state', area='$area', postal_code='$postal_code', country='$country', phone='$phone', lat=$lat, lng=$lng, price=$price, reserve_url='$reserve_url', mobile_reserve_url='$mobile_reserve_url', image_url='$image_url')"
-    }
 
 }

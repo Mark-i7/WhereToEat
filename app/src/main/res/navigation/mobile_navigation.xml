@@ -9,18 +9,31 @@
         android:id="@+id/nav_restaurants"
         android:name="com.example.wheretoeat.ui.restaurants.RestaurantFragment"
         android:label="@string/menu_restaurants"
-        tools:layout="@layout/fragment_restaurants" />
+        tools:layout="@layout/fragment_restaurants" >
+        <action
+            android:id="@+id/action_nav_restaurants_to_nav_favorites2"
+            app:destination="@id/nav_favorites" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.example.wheretoeat.ui.profile.ProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_nav_favorites2"
+            app:destination="@id/nav_favorites" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_favorites"
         android:name="com.example.wheretoeat.ui.favorites.FavoritesFragment"
         android:label="@string/menu_favorites"
         tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/nav_details"
+        android:name="com.example.wheretoeat.ui.details.DetailsFragment"
+        android:label="details_fragment"
+        tools:layout="@layout/details_fragment" />
 
 </navigation>

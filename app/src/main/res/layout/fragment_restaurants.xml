@@ -8,8 +8,6 @@ android:layout_marginLeft="5dp"
 android:layout_marginRight="5dp"
 tools:context=".ui.restaurants.RestaurantFragment">
 
-
-
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerView"
     android:layout_width="0dp"
