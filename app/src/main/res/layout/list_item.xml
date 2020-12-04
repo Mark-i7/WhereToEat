@@ -100,9 +100,10 @@
 
             <ImageView
                 android:id="@+id/love_it"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                tools:srcCompat="@drawable/heart" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                tools:srcCompat="@drawable/heart_before_tap" />
 
         </LinearLayout>
     </LinearLayout>

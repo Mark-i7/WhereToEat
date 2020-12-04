@@ -1,16 +1,21 @@
 package com.example.wheretoeat.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.R
+import com.example.wheretoeat.viewmodels.SharedViewModel
 import com.example.wheretoeat.models.Restaurant
-import com.example.wheretoeat.ui.restaurants.RestaurantFragment
+import com.example.wheretoeat.utils.Constants
+import com.google.android.material.snackbar.Snackbar
 
 
-class RestaurantAdapter(    private val  listener: OnItemClickListener): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>(){
+class RestaurantAdapter(private val  listener: OnItemClickListener,val context:Context,val viewModel:SharedViewModel): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>(){
 
     //private var restaurantList: Collections.emptyList<Restaurant>()
     private var restaurantList = emptyList<Restaurant>()
@@ -58,9 +63,48 @@ class RestaurantAdapter(    private val  listener: OnItemClickListener): Recycle
         holder.r_name.text=currentItem.name
         holder.address.text=currentItem.address
         holder.price.text=currentItem.price.toString()
-        holder.love_it.setImageResource(R.drawable.heart)
+        holder.love_it.setImageResource(R.drawable.heart_before_tap)
 
+        holder.love_it.setOnClickListener{
+            viewModel.addToFavorites(Constants.USER_ID,currentItem)
+            holder.love_it.setBackgroundResource(R.drawable.like)
+            Snackbar.make(
+                    holder.itemView,
+                    "Item ${currentItem.id} clicked",
+                    Snackbar.LENGTH_SHORT
+            ).show()
+        }
+        holder.love_it.setOnLongClickListener {
+            holder.love_it.setBackgroundResource(R.drawable.heart_before_tap)
+            Snackbar.make(
+                    holder.itemView,
+                    "Item ${currentItem.id} removed from favourites",
+                    Snackbar.LENGTH_SHORT
+            ).show()
+            true
+        }
+        holder.itemView.setOnClickListener{
+            val bundle = bundleOf(
+                    "name" to currentItem.name,
+                    "address" to currentItem.address,
+                    "city" to currentItem.city,
+                    "state" to currentItem.state,
+                    "area" to currentItem.area,
+                    "postal_code" to currentItem.postal_code,
+                    "country" to currentItem.country,
+                    "price" to currentItem.price,
+                    "lat" to currentItem.lat,
+                    "lng" to currentItem.lng,
+                    "phone" to currentItem.phone,
+                    "reserve_url" to currentItem.reserve_url,
+                    "mobile_reserve_url" to currentItem.mobile_reserve_url)
+
+            Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
+
+            holder.itemView.findNavController().navigate(R.id. nav_details, bundle)
+        }
     }
+
 
     override fun getItemCount() = restaurantList.size
 

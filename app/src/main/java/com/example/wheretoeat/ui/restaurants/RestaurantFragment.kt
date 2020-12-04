@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.R
 import com.example.wheretoeat.adapters.OnItemClickListener
 import com.example.wheretoeat.adapters.RestaurantAdapter
+import com.example.wheretoeat.viewmodels.SharedViewModel
 import com.example.wheretoeat.data.RestaurantDataViewModel
 import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.repository.RestaurantApiRepository
+import com.example.wheretoeat.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -36,6 +38,7 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
     private lateinit var restaurantViewModel:RestaurantViewModel
     private lateinit var restaurantList: RecyclerView
     private lateinit var restaurantAdapter: RestaurantAdapter
+    private  val sharedViewModel : SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,12 +50,15 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
         val root = inflater.inflate(R.layout.fragment_restaurants, container, false)
 
         //restaurantAdapter = RestaurantAdapter(restaurantDataViewModel.getAllRestaurants(), this)
-        restaurantAdapter= RestaurantAdapter(this)
+        restaurantAdapter= RestaurantAdapter(this,requireContext(),sharedViewModel)
         restaurantList = root.findViewById(R.id.recyclerView)
         restaurantList.adapter = restaurantAdapter
         restaurantList.layoutManager = LinearLayoutManager(activity)
         //restaurantList.setHasFixedSize(true)
 
+        val arrayList = sharedViewModel.getUserFav(Constants.USER_ID)
+        for(data in arrayList)
+        Log.d("FAV",data.toString())
         return root
     }
 

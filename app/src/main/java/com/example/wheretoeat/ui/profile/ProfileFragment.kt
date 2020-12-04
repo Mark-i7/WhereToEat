@@ -21,8 +21,6 @@ class ProfileFragment : Fragment() {
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var button: FloatingActionButton
     override fun onCreate(savedInstanceState: Bundle?) {
-        val navBar: NavigationView? = this.activity?.findViewById(R.id.nav_view)
-        navBar!!.visibility = View.VISIBLE
         super.onCreate(savedInstanceState)
     }
 
