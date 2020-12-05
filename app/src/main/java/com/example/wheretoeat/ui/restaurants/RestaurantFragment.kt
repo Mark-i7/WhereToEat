@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.R
 import com.example.wheretoeat.adapters.OnItemClickListener
 import com.example.wheretoeat.adapters.RestaurantAdapter
+import com.example.wheretoeat.data.DaoViewModel
 import com.example.wheretoeat.viewmodels.SharedViewModel
 import com.example.wheretoeat.data.RestaurantDataViewModel
 import com.example.wheretoeat.models.Restaurant
@@ -38,6 +41,8 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
     private lateinit var restaurantViewModel:RestaurantViewModel
     private lateinit var restaurantList: RecyclerView
     private lateinit var restaurantAdapter: RestaurantAdapter
+    private val daoViewModel: DaoViewModel by activityViewModels()
+
     private  val sharedViewModel : SharedViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -49,12 +54,14 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
 
         val root = inflater.inflate(R.layout.fragment_restaurants, container, false)
 
+
         //restaurantAdapter = RestaurantAdapter(restaurantDataViewModel.getAllRestaurants(), this)
-        restaurantAdapter= RestaurantAdapter(this,requireContext(),sharedViewModel)
+        restaurantAdapter= RestaurantAdapter(this,requireContext(),sharedViewModel,daoViewModel)
         restaurantList = root.findViewById(R.id.recyclerView)
         restaurantList.adapter = restaurantAdapter
         restaurantList.layoutManager = LinearLayoutManager(activity)
         //restaurantList.setHasFixedSize(true)
+
 
         val arrayList = sharedViewModel.getUserFav(Constants.USER_ID)
         for(data in arrayList)
@@ -70,10 +77,10 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
             lateinit var mylist:List<Restaurant>
 
             restaurantViewModel.loadRestaurants("Washington")
-
+            
             restaurantViewModel.response.observe(requireActivity(), { restaurants ->
                 mylist=restaurants
-                if(restaurants.size == 0) {
+                if(restaurants.isEmpty()) {
                     Toast.makeText(context,"Sorry I can't find restaurants in this city",Toast.LENGTH_SHORT).show()
                 }else{
                     restaurantAdapter.setData(restaurants)

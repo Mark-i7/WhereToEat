@@ -4,13 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.wheretoeat.models.Favorites
 import com.example.wheretoeat.models.Restaurant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class DaoViewModel(application: Application): AndroidViewModel(application) {
-    val readAllData: LiveData<List<Restaurant>>
+
+    val readAllData: LiveData<List<Favorites>>
     private val repository: RestaurantDBRepository
 
     init {
@@ -19,15 +21,15 @@ class DaoViewModel(application: Application): AndroidViewModel(application) {
         readAllData = repository.readAllData
     }
 
-    fun addRestaurantDB(restaurant: Restaurant){
+    fun addRestaurantDB(favorites:Favorites){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addRestaurant(restaurant)
+            repository.addRestaurant(favorites)
         }
     }
 
-    fun deleteRestaurantDB(restaurant: Restaurant){
+    fun deleteRestaurantDB(favorites: Favorites){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteRestaurant(restaurant)
+            repository.deleteRestaurant(favorites)
         }
     }
 

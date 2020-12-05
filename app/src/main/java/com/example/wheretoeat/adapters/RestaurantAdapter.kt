@@ -9,16 +9,20 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.R
+import com.example.wheretoeat.data.DaoViewModel
+import com.example.wheretoeat.models.Favorites
 import com.example.wheretoeat.viewmodels.SharedViewModel
 import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.utils.Constants
 import com.google.android.material.snackbar.Snackbar
 
 
-class RestaurantAdapter(private val  listener: OnItemClickListener,val context:Context,val viewModel:SharedViewModel): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>(){
+class RestaurantAdapter(private val  listener: OnItemClickListener,val context:Context,val viewModel:SharedViewModel,private var daoViewModel: DaoViewModel): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>(){
 
     //private var restaurantList: Collections.emptyList<Restaurant>()
     private var restaurantList = emptyList<Restaurant>()
+    private lateinit var favorites: Favorites
+    private var id=3.toLong()
 
     inner class RestaurantViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
         val image: ImageView = itemView.findViewById(R.id.imageView)
@@ -67,7 +71,13 @@ class RestaurantAdapter(private val  listener: OnItemClickListener,val context:C
 
         holder.love_it.setOnClickListener{
             viewModel.addToFavorites(Constants.USER_ID,currentItem)
+
             holder.love_it.setBackgroundResource(R.drawable.like)
+
+            favorites= Favorites(currentItem.id,Constants.USER_ID,currentItem.name)
+            daoViewModel.addRestaurantDB(favorites)
+            notifyDataSetChanged()
+
             Snackbar.make(
                     holder.itemView,
                     "Item ${currentItem.id} clicked",
@@ -76,6 +86,11 @@ class RestaurantAdapter(private val  listener: OnItemClickListener,val context:C
         }
         holder.love_it.setOnLongClickListener {
             holder.love_it.setBackgroundResource(R.drawable.heart_before_tap)
+
+//            favorites= Favorites(currentItem.id,Constants.USER_ID,currentItem.name)
+//            daoViewModel.deleteRestaurantDB(favorites)
+//            notifyDataSetChanged()
+//            daoViewModel.deleteAll()
             Snackbar.make(
                     holder.itemView,
                     "Item ${currentItem.id} removed from favourites",

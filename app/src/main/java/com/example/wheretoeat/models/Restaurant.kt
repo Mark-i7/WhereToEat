@@ -3,9 +3,7 @@ package com.example.wheretoeat.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName="restaurant_table")
 data class Restaurant(
-                 @PrimaryKey(autoGenerate = false)
                  var id:Long,
                  var name:String,
                  var address:String,
