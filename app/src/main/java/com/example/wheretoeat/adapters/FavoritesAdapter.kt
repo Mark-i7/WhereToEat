@@ -45,7 +45,6 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
         //holder.address.text=currentItem.address
         //holder.price.text=currentItem.price.toString()
 
-
     }
 
 

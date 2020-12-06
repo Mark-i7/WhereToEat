@@ -19,4 +19,18 @@ class RestaurantDBRepository(private val restaurantDao: RestaurantDao) {
     suspend fun deleteAll(){
         this.restaurantDao.deleteAll()
     }
+    //add favorite to the database
+//    suspend fun addFavorite(favorite: Favorites){
+//        restaurantDao.addFavorite(favorite)
+//    }
+//
+//    //delete favorite from database
+//    suspend fun deleteFavorite(userId: Int, restaurantId: Int){
+//        restaurantDao.deleteFavorite(userId, restaurantId)
+//    }
+//
+//    //check if the restaurant is liked
+//    suspend fun isLiked(restaurantId: Int) : Boolean{
+//        return restaurantDao.isLiked(restaurantId) != 0
+//    }
 }

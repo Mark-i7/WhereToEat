@@ -2,50 +2,39 @@ package com.example.wheretoeat.ui.restaurants
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.wheretoeat.models.CitiesResponse
+import com.example.wheretoeat.models.CountriesResponse
 import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.models.RestaurantByCity
 import com.example.wheretoeat.repository.RestaurantApiRepository
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class RestaurantViewModel(private val repository: RestaurantApiRepository) : ViewModel(){
 
-    val response: MutableLiveData<List<Restaurant>> = MutableLiveData()
-    val myCustomCity: MutableLiveData<Response<List<Restaurant>>> = MutableLiveData()
-
-    suspend fun getRestaurantsByCity(city: String) {
-        val res = repository.getRestaurantsByCity(city)
-        response.value = restaurantByCityConverter(res)
-    }
+    val myResponseAll:MutableLiveData<Response<RestaurantByCity>> = MutableLiveData()
+    val myResponseCountry:MutableLiveData<Response<CountriesResponse>> = MutableLiveData()
+    val myResponseCity:MutableLiveData<Response<CitiesResponse>> = MutableLiveData()
 
 
-    private fun restaurantByCityConverter(restaurantsByCity: RestaurantByCity): List<Restaurant> {
-        val list = mutableListOf<Restaurant>()
-
-        for(i in restaurantsByCity.restaurants){
-            val restaurant = Restaurant (
-                i.id,
-                i.name,
-                i.address,
-                i.city,
-                i.state,
-                i.area,
-                i.postal_code,
-                i.country,
-                i.phone,
-                i.lat,
-                i.lng,
-                i.price,
-                i.reserve_url,
-                i.mobile_reserve_url,
-                i.image_url
-            )
-            list.add(restaurant)
+    fun getAllRestaurant(country:String, page:Int){
+        viewModelScope.launch {
+            val response = repository.getAllRestaurants(country, page)
+            myResponseAll.value = response
         }
-        return list
     }
 
-    suspend fun loadRestaurants(city: String) {
-        getRestaurantsByCity(city)
+    fun getCountry(){
+        viewModelScope.launch {
+            val response = repository.getCountries()
+            myResponseCountry.value = response
+        }
     }
-
+    fun getCity(){
+        viewModelScope.launch {
+            val response = repository.getCities()
+            myResponseCity.value = response
+        }
+    }
 }

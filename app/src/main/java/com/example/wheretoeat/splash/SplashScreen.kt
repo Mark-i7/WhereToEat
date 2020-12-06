@@ -4,28 +4,47 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.wheretoeat.MainActivity
 import com.example.wheretoeat.R
+import com.example.wheretoeat.repository.RestaurantApiRepository
+import com.example.wheretoeat.ui.restaurants.RestaurantViewModel
+import com.example.wheretoeat.ui.restaurants.RestaurantViewModelFactory
+import com.example.wheretoeat.utils.Constants.Companion.cities
 
 @Suppress("DEPRECATION")
 class SplashScreen : AppCompatActivity() {
+
+    private lateinit var viewModel: RestaurantViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        // This is used to hide the status bar and make
-        // the splash screen as a full screen activity.
+
+        val repository = RestaurantApiRepository()
+        val viewModelFactory = RestaurantViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantViewModel::class.java)
+        viewModel.getCity()
+        viewModel.myResponseCity.observe(this, Observer { response ->
+            if (response.isSuccessful) {
+                cities = response.body()?.cities!!
+            }
+        })
+
+
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        // we used the postDelayed(Runnable, time) method
-        // to send a message with a delayed time.
+
         Handler().postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000) // 3000 is the delayed time in milliseconds.
+        }, 1500)
     }
 }

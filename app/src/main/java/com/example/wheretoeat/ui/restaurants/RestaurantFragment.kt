@@ -1,49 +1,45 @@
 package com.example.wheretoeat.ui.restaurants
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.core.os.bundleOf
+import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.R
-import com.example.wheretoeat.adapters.OnItemClickListener
+import androidx.lifecycle.Observer
 import com.example.wheretoeat.adapters.RestaurantAdapter
 import com.example.wheretoeat.data.DaoViewModel
-import com.example.wheretoeat.viewmodels.SharedViewModel
-import com.example.wheretoeat.data.RestaurantDataViewModel
 import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.repository.RestaurantApiRepository
 import com.example.wheretoeat.utils.Constants
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
+import kotlinx.android.synthetic.main.fragment_restaurants.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
-class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
+class RestaurantFragment() : Fragment() {
+//
+//    override val coroutineContext: CoroutineContext
+//        get() = Dispatchers.Main + Job()
+//regi jo
+//    private  val restaurantDataViewModel: RestaurantDataViewModel by activityViewModels()
+//    private lateinit var restaurantViewModel:RestaurantViewModel
+//    private lateinit var restaurantList: RecyclerView
+//    private lateinit var restaurantAdapter: RestaurantAdapter
+//    private val daoViewModel: DaoViewModel by activityViewModels()
 
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + Job()
 
-    private  val restaurantDataViewModel: RestaurantDataViewModel by activityViewModels()
-    private lateinit var restaurantViewModel:RestaurantViewModel
-    private lateinit var restaurantList: RecyclerView
-    private lateinit var restaurantAdapter: RestaurantAdapter
-    private val daoViewModel: DaoViewModel by activityViewModels()
+    private lateinit var daoViewModel: DaoViewModel
+    private lateinit var viewModel: RestaurantViewModel
+    private var adapter: RestaurantAdapter? = null
+    private var mySearch: CharSequence = ""
 
-    private  val sharedViewModel : SharedViewModel by activityViewModels()
+    //    private  val sharedViewModel : SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,72 +48,115 @@ class RestaurantFragment() : Fragment() ,CoroutineScope,OnItemClickListener{
     ): View? {
 
 
-        val root = inflater.inflate(R.layout.fragment_restaurants, container, false)
+        val view = inflater.inflate(R.layout.fragment_restaurants, container, false)
 
+        val search = view.findViewById<TextView>(R.id.search_bar)
 
-        //restaurantAdapter = RestaurantAdapter(restaurantDataViewModel.getAllRestaurants(), this)
-        restaurantAdapter= RestaurantAdapter(this,requireContext(),sharedViewModel,daoViewModel)
-        restaurantList = root.findViewById(R.id.recyclerView)
-        restaurantList.adapter = restaurantAdapter
-        restaurantList.layoutManager = LinearLayoutManager(activity)
-        //restaurantList.setHasFixedSize(true)
-
-
-        val arrayList = sharedViewModel.getUserFav(Constants.USER_ID)
-        for(data in arrayList)
-        Log.d("FAV",data.toString())
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        launch {
-            val repository = RestaurantApiRepository()
-            val viewModelFactory = RestaurantViewModelFactory(repository)
-            restaurantViewModel =ViewModelProvider(requireActivity(), viewModelFactory).get(RestaurantViewModel::class.java)
-            lateinit var mylist:List<Restaurant>
-
-            restaurantViewModel.loadRestaurants("Washington")
-            
-            restaurantViewModel.response.observe(requireActivity(), { restaurants ->
-                mylist=restaurants
-                if(restaurants.isEmpty()) {
-                    Toast.makeText(context,"Sorry I can't find restaurants in this city",Toast.LENGTH_SHORT).show()
-                }else{
-                    restaurantAdapter.setData(restaurants)
+        val spinner = view.findViewById<Spinner>(R.id.spinner)
+        if (spinner != null) {
+            val temp_adapter =
+                activity?.let {
+                    ArrayAdapter(it, android.R.layout.simple_spinner_item, Constants.cities)
                 }
-                Log.d("apirespons", restaurants.toString())
-
-            })
-            super.onViewCreated(view, savedInstanceState)
+            spinner.adapter = temp_adapter
         }
-    }
 
-    override fun onItemClick(position: Int) {
-        Toast.makeText(activity, "Item $position clicked", Toast.LENGTH_SHORT).show()
-        val bundle = bundleOf("position" to position)
-        requireView().findNavController().navigate(R.id.nav_details, bundle)
-    }
+        val pageNum = (1..20).toList()
+        val spinnerPage = view.findViewById<Spinner>(R.id.spinnerPage)
+        if (spinnerPage != null) {
+            val temp_adapter =
+                activity?.let {
+                    ArrayAdapter(it, android.R.layout.simple_spinner_item, pageNum)
+                }
+            spinnerPage.adapter = temp_adapter
+        }
 
-    override fun onItemLongClick(position: Int) {
-        val alertDialog: AlertDialog? = activity.let{
+        daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
+        adapter = context?.let { RestaurantAdapter(daoViewModel, it) }
 
-            val builder = AlertDialog.Builder(it)
-            builder.apply {
-                setTitle("Are you sure you want to delete this item?")
-                setPositiveButton("Yes",
-                    DialogInterface.OnClickListener { dialog, od ->
-                        restaurantDataViewModel.removeRestaurant(position)
-                        restaurantAdapter.notifyDataSetChanged()
-                        Toast.makeText(activity, "Item $position Deleted", Toast.LENGTH_SHORT).show()
-                    })
-                setNegativeButton("No",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(activity, "Delete cancelled", Toast.LENGTH_SHORT).show()
-                    })
+        view.recycle_view.adapter = adapter
+        view.recycle_view.layoutManager = LinearLayoutManager(requireContext())
+        view.recycle_view.setHasFixedSize(true)
+
+        var list: ArrayList<Restaurant> = arrayListOf()
+
+        val repository = RestaurantApiRepository()
+        val viewModelFactory = RestaurantViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantViewModel::class.java)
+
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
             }
-            builder.create()
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel.getAllRestaurant(
+                    spinner.selectedItem.toString(),
+                    spinnerPage.selectedItem as Int
+                )
+                search.text = ""
+                spinnerPage?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                    }
+
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        viewModel.getAllRestaurant(
+                            spinner.selectedItem.toString(),
+                            spinnerPage.selectedItem as Int
+                        )
+                        search.text = ""
+                    }
+                }
+            }
         }
-        alertDialog?.show()
+
+        viewModel.myResponseAll.observe(viewLifecycleOwner, Observer { response ->
+            if (response.isSuccessful) {
+                if (response.body()?.restaurants!!.isNotEmpty()) {
+                    list = (response.body()?.restaurants as ArrayList<Restaurant>?)!!
+                    adapter?.setData(list)
+                } else {
+                    Toast.makeText(context, "Invalid page number!", Toast.LENGTH_SHORT).show()
+                    adapter?.setData(mutableListOf())
+                }
+                Log.d("List size: ", list.size.toString())
+
+            }
+        })
+
+        search.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val filteredList = mutableListOf<Restaurant>()
+                if (s.toString().isNotEmpty()) {
+                    adapter?.setData(list.filter {
+                        it.name.toLowerCase(Locale.ROOT)
+                            .contains(s.toString().toLowerCase(Locale.ROOT))
+                    } as MutableList<Restaurant>)
+                } else {
+                    adapter?.setData(list)
+                }
+            }
+        })
+
+        return view
     }
 
 }
+
+
+
+

@@ -6,6 +6,9 @@ class Constants {
         val USER_ID = 12345.toLong()
         val BASE_IMAGE_URL = "https://www.opentable.com/img/restimages/"
         lateinit var states: ArrayList<String>
-        lateinit var cities: ArrayList<String>
+//        lateinit var cities: ArrayList<String>
+        var cities: ArrayList<String> = arrayListOf()
+
+
     }
 }

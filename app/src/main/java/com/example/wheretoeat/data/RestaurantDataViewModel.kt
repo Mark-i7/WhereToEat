@@ -18,24 +18,24 @@ class RestaurantDataViewModel: ViewModel() {
 
 
 
-    fun generateDummyData(nr: Int) {
-        for(i in 0..nr) {
-            val restaurant = Restaurant((i*1312421).toLong(),
-                "Restaurant $i",
-                "street $i",
-                i.toString(),
-                "US",
-                "t",
-                "blabl0",
-                "America",
-                "411312",
-                7623478-i*95*10234.00,
-                (i*5-65).toDouble(),
-                i,
-                "facebookdf.com",
-                "asd.com",
-                "https://png.pngtree.com/png-clipart/20190611/original/pngtree-cartoon-restaurant-png-image_2979475.jpg")
-            restaurantList.add(restaurant)
-        }
-    }
+//    fun generateDummyData(nr: Int) {
+//        for(i in 0..nr) {
+//            val restaurant = Restaurant((i*1312421).toLong(),
+//                "Restaurant $i",
+//                "street $i",
+//                i.toString(),
+//                "US",
+//                "t",
+//                12321424-i.toLong(),
+//                "America",
+//                "411312",
+//                7623478-i*95*10234.00,
+//                (i*5-65).toDouble(),
+//                123.toLong(),
+//                "facebookdf.com",
+//                "asd.com",
+//                "https://png.pngtree.com/png-clipart/20190611/original/pngtree-cartoon-restaurant-png-image_2979475.jpg")
+//            restaurantList.add(restaurant)
+//        }
+//    }
 }

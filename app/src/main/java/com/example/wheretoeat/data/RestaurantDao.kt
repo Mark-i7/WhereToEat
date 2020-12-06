@@ -18,5 +18,15 @@ interface RestaurantDao {
 
     @Query("SELECT * FROM favorites_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<Favorites>>
+//
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    suspend fun addFavorite(favorite : Favorites)
+//
+//    @Query("Delete from fav_table where restaurantId = :restaurantId and  ownerId= :userId")
+//    suspend fun deleteFavorite(userId: Int, restaurantId: Int)
+//
+//    @Query("Select COUNT(*) from fav_table where restaurantId = :restaurantId")
+//    suspend fun isLiked(restaurantId : Int) : Int
+
 
 }
