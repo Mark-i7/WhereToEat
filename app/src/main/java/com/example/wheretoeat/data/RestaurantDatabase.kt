@@ -8,9 +8,10 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.wheretoeat.models.Favorites
 import com.example.wheretoeat.models.Restaurant
+import com.example.wheretoeat.models.User
 
 
-@Database(entities = [Favorites::class], version = 3, exportSchema = false)
+@Database(entities = [Favorites::class, User::class], version = 3, exportSchema = false)
 abstract class RestaurantDatabase: RoomDatabase() {
 
     abstract fun RestaurantDao():RestaurantDao
@@ -18,14 +19,6 @@ abstract class RestaurantDatabase: RoomDatabase() {
     companion object{
         @Volatile
         private var INSTANCE: RestaurantDatabase?=null
-
-//        val migration_1_2: Migration = object: Migration(1,2)
-//        {
-//            override fun migrate(database: SupportSQLiteDatabase) {
-//
-//                database.execSQL("CREATE TABLE IF NOT EXISTS `favorites_tabel` (`id` BIGINT NOT NULL ,`userId` BIGINT NOT NULL,`restId` BIGINT NOT NULL,`name` VARCHAR, PRIMARY KEY(`id`))")
-//            }
-//        }
 
         fun getDatabase(context: Context):RestaurantDatabase{
             val tempInstance = INSTANCE

@@ -1,38 +1,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:layout_marginLeft="5dp"
-android:layout_marginRight="5dp"
-tools:context=".ui.restaurants.RestaurantFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:orientation="vertical"
+    tools:context=".ui.restaurants.RestaurantFragment">
 
-
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="124dp"
-        android:clipToPadding="false"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_item" />
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/spinner"
-        android:layout_width="250dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/material_on_primary_emphasis_high_type"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/place"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -41,29 +25,28 @@ tools:context=".ui.restaurants.RestaurantFragment">
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/material_on_primary_emphasis_high_type"
         android:drawableStart="@drawable/ic_search"
+        android:drawableLeft="@drawable/ic_search"
         android:ems="10"
         android:hint="Search by name.."
         android:inputType="textPersonName"
-        android:padding="3dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:drawableLeft="@drawable/ic_search" />
+        app:layout_constraintStart_toEndOf="@+id/spinner"
+        tools:ignore="MissingConstraints" />
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/spinnerPage"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
         android:backgroundTint="@color/material_on_primary_emphasis_high_type"
+        android:clipToPadding="false"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/place"
@@ -78,13 +61,25 @@ tools:context=".ui.restaurants.RestaurantFragment">
 
     <ImageView
         android:id="@+id/page"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
         android:src="@drawable/ic_page"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:clipToPadding="false"
+        android:padding="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerPage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place" />
+        app:layout_constraintTop_toTopOf="@id/search_bar"
+        tools:listitem="@layout/list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

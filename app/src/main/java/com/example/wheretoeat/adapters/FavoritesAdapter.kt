@@ -26,7 +26,6 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
         val r_name: TextView = itemView.findViewById(R.id.r_name)
         //val address: TextView = itemView.findViewById(R.id.address)
         //val price: TextView = itemView.findViewById(R.id.price)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
@@ -40,7 +39,18 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val currentItem = favList[position]
 
-        holder.image.setImageResource(R.drawable.foods)
+//        holder.image.setImageResource(R.drawable.foods)
+
+        if(currentItem.id.toInt() % 2 == 0) {
+            holder.image.setImageResource(R.drawable.restaurant1)
+        }else if(currentItem.id.toInt() % 3 ==0){
+            holder.image.setImageResource(R.drawable.restaurant2)
+        }else if(currentItem.id.toInt() % 7 ==0){
+            holder.image.setImageResource(R.drawable.restaurant4)
+        }else{
+            holder.image.setImageResource(R.drawable.restaurant3)
+        }
+
         holder.r_name.text=currentItem.name
         //holder.address.text=currentItem.address
         //holder.price.text=currentItem.price.toString()
