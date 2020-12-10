@@ -10,24 +10,27 @@
     <string name="menu_restaurants">Restaurants</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_favorites">Favorites</string>
-    <string name="title_activity_searchable">SearchableActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="splash_title">Where To Eat?</string>
+    <string name="my_name">Designed by Sikó Márk Levente</string>
+    <string name="rest_name">Name</string>
+    <string name="rest_address">Address</string>
+    <string name="rest_city">City</string>
+    <string name="rest_state">State</string>
+    <string name="rest_area">Area</string>
+    <string name="rest_postalcode">Postalcode</string>
+    <string name="rest_country">Country</string>
+    <string name="rest_price">Price</string>
+    <string name="rest_reserve_url">Reserve Url</string>
+    <string name="rest_mobile_reserve">Mobile Reserve</string>
+    <string name="login_motivation_text">Let\'s get some food!</string>
+    <string name="hungry">I am hungry</string>
+    <string name="example_mail">example@gmail.com</string>
+    <string name="password">password</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Don\'t have an account?\nSign Up Here</string>
+    <string name="example_name">Thomas Shelby</string>
+    <string name="phone_nr">0713542143</string>
+    <string name="sign_up_simple">Sign Up</string>
+    <string name="search_by_name">Search by name</string>
 </resources>

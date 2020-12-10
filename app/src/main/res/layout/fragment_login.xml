@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Let's get some food!"
+                android:text="@string/login_motivation_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#465A61"
                 app:fontFamily="cursive" />
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="I am hungry"
+                android:text="@string/hungry"
                 android:textAllCaps="false"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:textColor="#969EEE"
@@ -68,9 +68,10 @@
                 android:layout_marginBottom="5dp"
                 android:drawableLeft="@drawable/ic_email"
                 android:drawablePadding="16dp"
-                android:hint="example@gmail.com"
+                android:hint="@string/example_mail"
                 android:inputType="textEmailAddress"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:drawableStart="@drawable/ic_email" />
 
             <EditText
                 android:id="@+id/password_login"
@@ -79,16 +80,17 @@
                 android:layout_marginBottom="5dp"
                 android:drawableLeft="@drawable/ic_lock"
                 android:drawablePadding="16dp"
-                android:hint="password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:drawableStart="@drawable/ic_lock" />
 
             <TextView
                 android:id="@+id/text_view_forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:text="Forget Password?"
+                android:text="@string/forget_password"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimaryDark" />
 
@@ -97,7 +99,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Sign In"
+                android:text="@string/sign_in"
                 android:textAllCaps="false" />
 
         </LinearLayout>
@@ -109,7 +111,7 @@
             android:layout_below="@id/linearLayout2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="2dp"
-            android:text="Don't have an account?\nSign Up Here"
+            android:text="@string/sign_up"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorPrimary" />

@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="30dp"
-        android:text="Where To Eat?"
+        android:text="@string/splash_title"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -41,7 +41,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textView1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:id="@+id/textView1"
@@ -49,10 +50,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
-        android:text="Designed by Siko Mark Levente"
+        android:text="@string/my_name"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

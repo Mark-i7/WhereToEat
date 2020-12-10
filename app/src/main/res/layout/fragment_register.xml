@@ -52,65 +52,70 @@
 
                 <EditText
                     android:id="@+id/user_name"
-                    android:hint="John Smith"
+                    android:hint="@string/example_name"
                     android:inputType="text"
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_person"
                     android:layout_width="match_parent"
                     android:padding="12dp"
                     android:layout_marginBottom="12dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_person" />
 
                 <EditText
                     android:id="@+id/user_email"
-                    android:hint="example@gmail.com"
+                    android:hint="@string/example_mail"
                     android:inputType="textEmailAddress"
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_email"
                     android:layout_width="match_parent"
                     android:padding="12dp"
                     android:layout_marginBottom="12dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_email" />
 
                 <EditText
                     android:id="@+id/password"
                     android:inputType="textPassword"
-                    android:hint="password"
+                    android:hint="@string/password"
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_lock"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="12dp"
                     android:padding="12dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_lock" />
 
                 <EditText
                     android:id="@+id/user_adress"
                     android:inputType="textPostalAddress"
-                    android:hint="Address"
+                    android:hint="@string/rest_address"
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_location"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="12dp"
                     android:padding="12dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_location" />
 
                 <EditText
                     android:id="@+id/user_phone"
-                    android:hint="0713542143"
+                    android:hint="@string/phone_nr"
                     android:inputType="phone"
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_phone"
                     android:layout_width="match_parent"
                     android:padding="12dp"
                     android:layout_marginBottom="12dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_phone" />
 
 
                 <Button
                     android:id="@+id/finish_registration"
                     android:layout_gravity="center_horizontal"
                     android:textAllCaps="false"
-                    android:text="Sign Up"
+                    android:text="@string/sign_up_simple"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"/>
 

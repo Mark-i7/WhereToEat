@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.R
 import com.example.wheretoeat.adapters.FavoritesAdapter
-import com.example.wheretoeat.adapters.RestaurantAdapter
 import com.example.wheretoeat.data.DaoViewModel
 import com.example.wheretoeat.ui.restaurants.RestaurantViewModel
-import com.example.wheretoeat.viewmodels.SharedViewModel
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class FavoritesFragment : Fragment() {
@@ -40,7 +38,7 @@ class FavoritesFragment : Fragment() {
 
         //favAdapter= RestaurantAdapter(this,requireContext(),sharedViewModel,daoViewModel)
         val adapter=FavoritesAdapter()
-        favList = view.findViewById(R.id.recyclerView2)
+        favList = view.findViewById(R.id.recyclerview_favorites)
         favList.adapter = adapter
         favList.layoutManager = LinearLayoutManager(activity)
         mDaoViewModel=ViewModelProvider(this).get(DaoViewModel::class.java)

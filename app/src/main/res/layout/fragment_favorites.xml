@@ -7,13 +7,13 @@
     tools:context=".ui.favorites.FavoritesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/recyclerview_favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_item2"/>
+        tools:listitem="@layout/list_item_fav"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

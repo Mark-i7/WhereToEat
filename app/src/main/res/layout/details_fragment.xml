@@ -8,7 +8,8 @@
     android:layout_marginTop="10dp"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
-    android:layout_marginBottom="30dp">
+    android:layout_marginBottom="30dp"
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -27,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Name"
+                android:text="@string/rest_name"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textSize="30sp"
@@ -79,7 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Address"
+                        android:text="@string/rest_address"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -102,7 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="City"
+                        android:text="@string/rest_city"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -125,7 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="State"
+                        android:text="@string/rest_state"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -148,7 +149,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Area"
+                        android:text="@string/rest_area"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -171,10 +172,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
-                        android:text="Postalcode"
+                        android:text="@string/rest_postalcode"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -188,17 +190,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_weight="3"
-                        app:srcCompat="@drawable/coronavirus" />
+                        app:srcCompat="@drawable/world" />
 
                     <TextView
                         android:id="@+id/country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
-                        android:text="Country"
+                        android:text="@string/rest_country"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -219,7 +222,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Price"
+                        android:text="@string/rest_price"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -242,10 +245,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
-                        android:text="Reserve Url"
+                        android:text="@string/rest_reserve_url"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -266,7 +270,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Mobile Reserve"
+                        android:text="@string/rest_mobile_reserve"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
