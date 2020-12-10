@@ -7,6 +7,7 @@ class SharedViewModel: ViewModel() {
 
     val favorited: HashMap<Long,ArrayList<Restaurant>> = hashMapOf()
 
+    var isLoggedIn = false
     fun addToFavorites(userId:Long,restaurant:Restaurant){
         var temp = favorited.get(userId)
         if(temp == null){

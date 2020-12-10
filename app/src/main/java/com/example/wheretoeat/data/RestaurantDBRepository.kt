@@ -8,6 +8,8 @@ import com.example.wheretoeat.models.User
 class RestaurantDBRepository(private val restaurantDao: RestaurantDao) {
 
     val readAllData: LiveData<List<Favorites>> = restaurantDao.readAllData()
+    val getAllUsers: LiveData<List<User>> = restaurantDao.selectAllUsers()
+
 
     suspend fun addRestaurant(favorites: Favorites){
         restaurantDao.addRestaurantDao(favorites)
@@ -21,16 +23,13 @@ class RestaurantDBRepository(private val restaurantDao: RestaurantDao) {
         this.restaurantDao.deleteAll()
     }
 
-    suspend fun addUser(user: User){
-        restaurantDao.addUser(user)
+
+    suspend fun insertUser(user:User) {
+        restaurantDao.insertUser(user)
     }
 
-    suspend fun deleteUser(user: User){
-        restaurantDao.deleteUser(user)
-    }
-
-    suspend fun getUser(userName:String,password:String){
-        restaurantDao.getUser(userName,password)
+    suspend fun deleteAllUsers() {
+        restaurantDao.deleteAllUsers()
     }
 
 }

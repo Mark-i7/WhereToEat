@@ -11,7 +11,7 @@ import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.models.User
 
 
-@Database(entities = [Favorites::class, User::class], version = 3, exportSchema = false)
+@Database(entities = [Favorites::class, User::class], version = 4, exportSchema = false)
 abstract class RestaurantDatabase: RoomDatabase() {
 
     abstract fun RestaurantDao():RestaurantDao

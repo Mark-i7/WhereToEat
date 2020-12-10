@@ -20,16 +20,13 @@ interface RestaurantDao {
     @Query("SELECT * FROM favorites_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<Favorites>>
 
-
+    //User
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addUser(user: User)
+    suspend fun insertUser(user: User)
 
-    @Update
-    suspend fun updateUser(user: User)
+    @Query("SELECT * FROM  user_table ORDER BY id ASC")
+    fun selectAllUsers(): LiveData<List<User>>
 
-    @Query("select * from user_table where email = :email and password = :password")
-    fun getUser(email: String,password : String)
-
-    @Delete
-    suspend fun deleteUser(user: User)
+    @Query("DELETE FROM user_table")
+    suspend fun deleteAllUsers()
 }

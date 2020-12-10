@@ -17,6 +17,10 @@ class DaoViewModel(application: Application): AndroidViewModel(application) {
 
     val readAllData: LiveData<List<Favorites>>
     private val repository: RestaurantDBRepository
+    val readAllUsers: LiveData<List<User>>
+        get() {
+            return repository.getAllUsers
+        }
 
 
     init {
@@ -45,20 +49,13 @@ class DaoViewModel(application: Application): AndroidViewModel(application) {
 
     fun addUserDB(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addUser(user)
+            repository.insertUser(user)
         }
     }
 
-    fun deleteUserDB(user: User) {
+    fun deleteAllUserDB() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteUser(user)
-        }
-    }
-
-
-    fun getUserDB(userName: String,password: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getUser(userName,password)
+            repository.deleteAllUsers()
         }
     }
 }
