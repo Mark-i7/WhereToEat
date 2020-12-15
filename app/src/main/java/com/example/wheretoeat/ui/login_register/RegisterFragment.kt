@@ -50,7 +50,7 @@ class RegisterFragment : Fragment() {
                     userEmail.text.toString(),
                     userPassword.text.toString()
             )
-            Log.d("REGISTERED", user.name)
+            Log.d("Successful sign up!", user.name)
             daoViewModel.addUserDB(user)
             setUser(user.name)
             findNavController().navigate(R.id.nav_restaurants)

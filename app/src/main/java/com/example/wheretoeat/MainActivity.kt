@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val restaurantDataViewModel:RestaurantDataViewModel by viewModels()
-        //restaurantDataViewModel.generateDummyData(10)
+//        val restaurantDataViewModel:RestaurantDataViewModel by viewModels()
+//        restaurantDataViewModel.generateDummyData(10)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
