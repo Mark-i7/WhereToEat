@@ -28,8 +28,7 @@ class FavoritesFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-//        favoritesViewModel =
-//                ViewModelProvider(this).get(FavoritesViewModel::class.java)
+
 
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
 //        view.love_it.setOnClickListener {
@@ -42,13 +41,11 @@ class FavoritesFragment : Fragment() {
         favList.adapter = adapter
         favList.layoutManager = LinearLayoutManager(activity)
         mDaoViewModel=ViewModelProvider(this).get(DaoViewModel::class.java)
+
         mDaoViewModel.readAllData.observe(viewLifecycleOwner, Observer { favorites ->
             adapter.setData(favorites)
         })
         return view
     }
-//
-//    private fun insertDataToDatabase() {
-//        val id=
-//    }
+
 }
