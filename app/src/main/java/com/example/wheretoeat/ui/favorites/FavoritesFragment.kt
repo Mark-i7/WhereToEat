@@ -45,6 +45,7 @@ class FavoritesFragment : Fragment() {
         mDaoViewModel.readAllData.observe(viewLifecycleOwner, Observer { favorites ->
             adapter.setData(favorites)
         })
+
         return view
     }
 

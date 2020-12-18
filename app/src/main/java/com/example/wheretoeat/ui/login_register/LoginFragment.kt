@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -46,6 +47,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val registerButton = view.findViewById<TextView>(R.id.goto_registration)
         val signinButton = view.findViewById<Button>(R.id.sign_in)
+
+
         userEmail = view.findViewById(R.id.user_email_login)
         userPassword = view.findViewById(R.id.password_login)
 
