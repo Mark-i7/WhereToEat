@@ -23,7 +23,9 @@ import com.example.wheretoeat.R
 import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.viewmodels.SharedViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.details_fragment.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.profilePic
 
 class DetailsFragment : Fragment() {
 
@@ -153,13 +155,13 @@ class DetailsFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
-            Glide.with(requireContext())
-                .load(data?.data)
-                .into(profilePic)
+//            Glide.with(requireContext())
+//                .load(data?.data)
+//                .into(profilePic)
 //            //saving profile pic uri in a variable, then saving it, if the user logs out
 //            imageUri = data?.data.toString()
 //            Toast.makeText(context, "To save the profile picture you have to logout first!", Toast.LENGTH_LONG).show()
-            profilePic.setImageURI(data?.data)
+            imageView.setImageURI(data?.data)
         }
     }
 

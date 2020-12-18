@@ -236,8 +236,8 @@
 
                     <ImageView
                         android:id="@+id/reserve_url"
-                        android:layout_width="80dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="15dp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline_fav"
                         app:layout_constraintStart_toStartOf="parent"
@@ -247,8 +247,8 @@
 
                     <ImageView
                         android:id="@+id/mobile_reserve"
-                        android:layout_width="80dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline_fav"
@@ -257,9 +257,9 @@
 
                     <ImageButton
                         android:id="@+id/call_the_place"
-                        android:layout_width="80dp"
-                        android:layout_height="70dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/telephone"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -269,9 +269,9 @@
 
                     <ImageButton
                         android:id="@+id/view_location_map"
-                        android:layout_width="80dp"
-                        android:layout_height="70dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/map"
                         app:layout_constraintBottom_toBottomOf="parent"
