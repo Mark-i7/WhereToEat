@@ -10,15 +10,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -26,9 +23,7 @@ import com.example.wheretoeat.R
 import com.example.wheretoeat.data.DaoViewModel
 import com.example.wheretoeat.models.User
 import com.example.wheretoeat.utils.Constants
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
@@ -37,11 +32,14 @@ class ProfileFragment : Fragment() {
     private lateinit var button: FloatingActionButton
 
     private val daoViewModel: DaoViewModel by activityViewModels()
-    private lateinit var button1: Button
     private lateinit var name:TextView
     private lateinit var address:TextView
     private lateinit var phone :TextView
     private lateinit var email :TextView
+
+    private lateinit var email2 :TextView
+    private lateinit var name2 :TextView
+
     lateinit var allUsers: LiveData<List<User>>
     lateinit var users:List<User>
     var imageUri: String = ""
@@ -91,6 +89,7 @@ class ProfileFragment : Fragment() {
             address = findViewById(R.id.edit_address)
             phone = findViewById(R.id.edit_phone_nr)
             email = findViewById(R.id.edit_email)
+
         }
 
         super.onViewCreated(view, savedInstanceState)
