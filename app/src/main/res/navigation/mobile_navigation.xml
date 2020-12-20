@@ -33,20 +33,20 @@
     <fragment
         android:id="@+id/nav_details"
         android:name="com.example.wheretoeat.ui.details.DetailsFragment"
-        android:label="details_fragment"
+        android:label="Details"
         tools:layout="@layout/details_fragment" />
 
     <fragment
         android:id="@+id/navigation_register"
         android:name="com.example.wheretoeat.ui.login_register.RegisterFragment"
-        android:label="register"
+        android:label="Sign Up"
         tools:layout="@layout/fragment_register">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.wheretoeat.ui.login_register.LoginFragment"
-        android:label="log_in"
+        android:label="Sign In"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_navigation_login_to_navigation_register"

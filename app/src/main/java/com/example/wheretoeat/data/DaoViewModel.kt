@@ -3,47 +3,45 @@ package com.example.wheretoeat.data
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.wheretoeat.models.Favorites
-import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.models.User
-import com.example.wheretoeat.utils.Constants
+import com.example.wheretoeat.models.UserPicture
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class DaoViewModel(application: Application): AndroidViewModel(application) {
+class DaoViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<Favorites>>
     private val repository: RestaurantDBRepository
+    val readAllData: LiveData<List<Favorites>>
     val readAllUsers: LiveData<List<User>>
-        get() {
-            return repository.getAllUsers
-        }
+    val getAllUserPics: LiveData<List<UserPicture>>
 
 
     init {
         val restaurantDao = RestaurantDatabase.getDatabase(application).RestaurantDao()
         repository = RestaurantDBRepository(restaurantDao)
         readAllData = repository.readAllData
+        readAllUsers = repository.getAllUsers
+        getAllUserPics = repository.getAllUserPics
     }
 
-    fun addRestaurantDB(favorites: Favorites) {
+    fun addFavRestDB(favorites: Favorites) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addRestaurant(favorites)
+            repository.addFavRest(favorites)
         }
     }
 
-    fun deleteRestaurantDB(favorites: Favorites) {
+    fun deleteFavRestDB(restId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteRestaurant(favorites)
+            repository.deleteFavRest(restId)
         }
     }
 
-    fun deleteAll() {
+    fun deleteAllFavDB() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAll()
+            repository.deleteAllFav()
         }
     }
 
@@ -58,4 +56,15 @@ class DaoViewModel(application: Application): AndroidViewModel(application) {
             repository.deleteAllUsers()
         }
     }
+
+    fun getUserFavorites(userName: String): LiveData<List<Long>> {
+        return repository.getUserFavorites(userName)
+    }
+
+    fun insertUserPic(userPicture: UserPicture) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertUserPic(userPicture)
+        }
+    }
+
 }

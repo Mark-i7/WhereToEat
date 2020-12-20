@@ -7,25 +7,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
+import com.example.wheretoeat.MainActivity
 import com.example.wheretoeat.R
 import com.example.wheretoeat.data.DaoViewModel
 import com.example.wheretoeat.models.User
 import com.example.wheretoeat.utils.Constants
-import com.example.wheretoeat.viewmodels.SharedViewModel
 
 class RegisterFragment : Fragment() {
     private val daoViewModel: DaoViewModel by activityViewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var user: User
+    lateinit var users: List<User>
+    lateinit var allUsers: LiveData<List<User>>
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        allUsers = daoViewModel.readAllUsers
+        allUsers.observe(viewLifecycleOwner, { us ->
+            users = us
+        })
+
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
@@ -38,11 +47,9 @@ class RegisterFragment : Fragment() {
         val userEmail = view.findViewById<EditText>(R.id.user_email)
 
 
+        val signupButton = view.findViewById<Button>(R.id.finish_registration)
 
-        val registerButton = view.findViewById<Button>(R.id.finish_registration)
-
-        registerButton.setOnClickListener {
-            sharedViewModel.isLoggedIn = true
+        signupButton.setOnClickListener {
             user = User(
                     userName.text.toString(),
                     userAddress.text.toString(),
@@ -50,17 +57,32 @@ class RegisterFragment : Fragment() {
                     userEmail.text.toString(),
                     userPassword.text.toString()
             )
-            Log.d("Successful sign up!", user.name)
-            daoViewModel.addUserDB(user)
-            setUser(user.name)
-            findNavController().navigate(R.id.nav_restaurants)
-        }
 
+            if (isRegistered(user)) {
+                Toast.makeText(context, "You are a registered user ! Did you forgot your password?", Toast.LENGTH_LONG).show()
+            } else {
+                MainActivity.isLoggedIn = true
+                Log.d("Successful sign up!", user.name)
+                daoViewModel.addUserDB(user)
+                setUser(user.name)
+                findNavController().navigate(R.id.nav_restaurants)
+            }
+        }
         super.onViewCreated(view, savedInstanceState)
     }
+
     companion object {
-        fun setUser(name:String) {
+        fun setUser(name: String) {
             Constants.USER_NAME = name
         }
+    }
+
+    private fun isRegistered(user: User): Boolean {
+        for (u in users) {
+            if ((u.email == user.email) && (u.password == user.password)) {
+                return true
+            }
+        }
+        return false
     }
 }

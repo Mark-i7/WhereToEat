@@ -11,30 +11,34 @@ import com.example.wheretoeat.repository.RestaurantApiRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class RestaurantViewModel(private val repository: RestaurantApiRepository) : ViewModel(){
+class RestaurantViewModel(private val repository: RestaurantApiRepository) : ViewModel() {
 
-    val myResponseAll:MutableLiveData<Response<RestaurantByCity>> = MutableLiveData()
-    val myResponseCountry:MutableLiveData<Response<CountriesResponse>> = MutableLiveData()
-    val myResponseCity:MutableLiveData<Response<CitiesResponse>> = MutableLiveData()
+    val myResponseAll: MutableLiveData<Response<RestaurantByCity>> = MutableLiveData()
+    val myResponseCountry: MutableLiveData<Response<CountriesResponse>> = MutableLiveData()
+    val myResponseCity: MutableLiveData<Response<CitiesResponse>> = MutableLiveData()
 
-
-    fun getAllRestaurant(country:String, page:Int){
+    fun getAllRestaurant(country: String, page: Int) {
         viewModelScope.launch {
             val response = repository.getAllRestaurants(country, page)
             myResponseAll.value = response
         }
     }
 
-    fun getCountry(){
+    fun getCountry() {
         viewModelScope.launch {
             val response = repository.getCountries()
             myResponseCountry.value = response
         }
     }
-    fun getCity(){
+
+    fun getCity() {
         viewModelScope.launch {
             val response = repository.getCities()
             myResponseCity.value = response
         }
+    }
+
+    suspend fun getFavRestById(id: Long): Response<Restaurant> {
+        return repository.getFavRestById(id)
     }
 }

@@ -9,9 +9,9 @@ object RetrofitInstance {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
     }
     val api by lazy {
         retrofit.create(RestaurantApiService::class.java)

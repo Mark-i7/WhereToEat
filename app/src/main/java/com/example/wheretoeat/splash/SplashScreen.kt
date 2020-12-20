@@ -1,13 +1,16 @@
 package com.example.wheretoeat.splash
+
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.wheretoeat.MainActivity
 import com.example.wheretoeat.R
+import com.example.wheretoeat.adapters.FavoritesAdapter.Companion.context
 import com.example.wheretoeat.repository.RestaurantApiRepository
 import com.example.wheretoeat.ui.restaurants.RestaurantViewModel
 import com.example.wheretoeat.ui.restaurants.RestaurantViewModelFactory
@@ -31,13 +34,15 @@ class SplashScreen : AppCompatActivity() {
         viewModel.myResponseCity.observe(this, Observer { response ->
             if (response.isSuccessful) {
                 cities = response.body()?.cities!!
+            } else {
+                Toast.makeText(context, "Something is wrong with the API!", Toast.LENGTH_LONG).show()
             }
         })
 
 
         window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
 

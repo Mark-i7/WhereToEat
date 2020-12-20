@@ -31,4 +31,5 @@
     <string name="phone_nr">0713542143</string>
     <string name="sign_up_simple">Sign Up</string>
     <string name="search_by_name">Search by name</string>
+    <string name="delete">Delete</string>
 </resources>

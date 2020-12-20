@@ -4,34 +4,31 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.wheretoeat.models.Favorites
-import com.example.wheretoeat.models.Restaurant
 import com.example.wheretoeat.models.User
+import com.example.wheretoeat.models.UserPicture
 
 
-@Database(entities = [Favorites::class, User::class], version = 4, exportSchema = false)
-abstract class RestaurantDatabase: RoomDatabase() {
+@Database(entities = [Favorites::class, User::class, UserPicture::class], version = 5, exportSchema = false)
+abstract class RestaurantDatabase : RoomDatabase() {
 
-    abstract fun RestaurantDao():RestaurantDao
+    abstract fun RestaurantDao(): RestaurantDao
 
-    companion object{
+    companion object {
         @Volatile
-        private var INSTANCE: RestaurantDatabase?=null
+        private var INSTANCE: RestaurantDatabase? = null
 
-        fun getDatabase(context: Context):RestaurantDatabase{
+        fun getDatabase(context: Context): RestaurantDatabase {
             val tempInstance = INSTANCE
-            if(tempInstance != null){
+            if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    RestaurantDatabase::class.java,
-                    "favorites_table"
+                        context.applicationContext,
+                        RestaurantDatabase::class.java,
+                        "favorites_table"
                 )
-//                        .addMigrations(migration_1_2)
                         .fallbackToDestructiveMigration()
                         .build()
                 INSTANCE = instance
