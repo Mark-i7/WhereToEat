@@ -1,5 +1,5 @@
-# WhereToEat?
-## An application for the peoples who lives in USA and can't decide where to go eat when they are hungry
+# WhereToEat? 
+## An application for the peoples who lives in USA and can't decide where to go eat when they are hungry :hamburger: :pizza: :fries: :spaghetti: :cake:
 <p>
   The application contains a splash screen.
 </p>
@@ -63,6 +63,7 @@ ________________________________________________________________________________
 
 ## Used Components: ##
 - Activity
+- Navigation Drawer Activity
 - Fragments
 - Constraint layout
 - Drawer Layout
@@ -85,8 +86,8 @@ ________________________________________________________________________________
 ## All rights reserved ##
 > :copyright: Sikó Márk Levente, Sapientia Hungarian University of Transylvania
 ## Contacts ##
-<sikomark.sl@gmail.com>
-<siko.mark.levente@student.ms.sapientia.ro>
+- <sikomark.sl@gmail.com>
+- <siko.mark.levente@student.ms.sapientia.ro>
 
 ## Contributors ##
 - Sikó Márk Levente | [git profile](https://github.com/Mark-i7)
