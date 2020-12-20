@@ -35,6 +35,10 @@ class FavoritesFragment : Fragment() {
         favList.layoutManager = LinearLayoutManager(activity)
         favList.setHasFixedSize(true)
 
+        /**
+         * Check the user is logged in
+         * And  if its logged it will shows the user's favourites restaurants
+         */
         if (MainActivity.isLoggedIn) {
             val favRest = mDaoViewModel.getUserFavorites(Constants.USER_NAME)
 
@@ -48,10 +52,21 @@ class FavoritesFragment : Fragment() {
 
         return view
     }
+
+    /**
+     * Inflate the delete menu
+     * @param menu Menu
+     * @param inflater MenuInflater
+     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.delete_all_menu, menu)
     }
 
+    /**
+     * Delete all the liked restaurants
+     * @param item MenuItem
+     * @return Boolean
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_delete_all) {
 

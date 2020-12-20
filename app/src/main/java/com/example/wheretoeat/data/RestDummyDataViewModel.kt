@@ -6,6 +6,7 @@ import kotlin.collections.ArrayList
 
 class RestDummyDataViewModel: ViewModel() {
 
+    //In case if API doesn't work here are the methods for generate DummyData
     private val restaurantList: ArrayList<Restaurant> = arrayListOf()
 
     fun addRestaurant(restaurant: Restaurant)= restaurantList.add(restaurant)

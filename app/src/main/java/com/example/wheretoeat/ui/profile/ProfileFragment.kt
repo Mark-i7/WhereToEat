@@ -102,6 +102,9 @@ class ProfileFragment : Fragment() {
         }
         button1 = view.findViewById(R.id.logout)
 
+        /**
+         * Listener to the Logout button
+         */
         button1.setOnClickListener {
             logOut()
         }
@@ -109,6 +112,9 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    /**
+     *  The registered detail's  will appear in the Profile section
+     */
     private fun setProfileData() {
         for (i in users) {
             if (i.name == Constants.USER_NAME && MainActivity.isLoggedIn) {
@@ -120,6 +126,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * Load the stored Profile Picture in circleCrop
+     */
     private fun getProfilePicture() {
         if (userPictures.isNotEmpty()) {
             for (i in userPictures) {
@@ -135,6 +144,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * Asking permission to use the gallery/camera
+     */
     private fun selectImageFromGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -153,13 +165,21 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * Function to choose image
+     */
     private fun pickImage() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, PICK_IMAGE)
     }
 
-    //requesting permission from the user
+    /**
+     * Requesting permission from the user
+     * @param requestCode Int
+     * @param permissions Array<out String>
+     * @param grantResults IntArray
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             PERMISSION_CODE -> {
@@ -170,6 +190,12 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * Saving the choosed picture as ByteArray
+     * @param requestCode Int
+     * @param resultCode Int
+     * @param data Intent?
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
             Glide.with(requireContext())
@@ -188,6 +214,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     *Logout ,
+     */
     private fun logOut() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->

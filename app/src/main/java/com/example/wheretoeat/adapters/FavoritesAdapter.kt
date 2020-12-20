@@ -35,6 +35,12 @@ class FavoritesAdapter(
         val r_name: TextView = itemView.findViewById(R.id.r_name)
     }
 
+    /**
+     * Only 1x called when you need a new View
+     * @param parent ViewGroup
+     * @param viewType Int
+     * @return FavoritesViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
                 R.layout.list_item_fav,
@@ -44,11 +50,20 @@ class FavoritesAdapter(
         return FavoritesViewHolder(itemView)
     }
 
+    /**
+     *  It is called by RecyclerView to display the data at the specified position.
+     *  This method is used to update the contents of the itemView
+     * @param holder FavoritesViewHolder
+     * @param position Int
+     */
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val currentItem = favList[position]
         holder.image.setImageResource(R.drawable.restaurant4)
         holder.r_name.text = currentItem.name
 
+        /**
+         * To pass restaurant's details{name,address,city etc] to Details Fragment
+         */
         holder.itemView.setOnClickListener {
             val bundle = bundleOf(
                     "name" to currentItem.name,
@@ -77,6 +92,7 @@ class FavoritesAdapter(
         notifyDataSetChanged()
     }
 
+
     companion object : CoroutineScope {
         var favListRest = emptyList<Restaurant>()
         lateinit var context: Context
@@ -85,6 +101,11 @@ class FavoritesAdapter(
         override val coroutineContext: CoroutineContext
             get() = Dispatchers.Main + Job()
 
+        /**
+         * This method gave the User's Favorite's list
+         * Every users have their own Favorite's list
+         * @param favRestId List<Long>
+         */
         fun getFavRestListById(favRestId: List<Long>) {
             val favRestMutableList: MutableList<Restaurant> = mutableListOf()
             launch {

@@ -44,6 +44,9 @@ class RestaurantFragment() : Fragment() {
 
         val search = view.findViewById<TextView>(R.id.search_bar)
 
+        /**
+         * Filling up spinner with cities
+         */
         val spinner = view.findViewById<Spinner>(R.id.spinner)
         if (spinner != null) {
             val temp_adapter =
@@ -53,6 +56,9 @@ class RestaurantFragment() : Fragment() {
             spinner.adapter = temp_adapter
         }
 
+        /**
+         * Spinner to choose between pages if they are a lot of restaurant
+         */
         val pageNum = (1..20).toList()
         val spinnerPage = view.findViewById<Spinner>(R.id.spinnerPage)
         if (spinnerPage != null) {
@@ -62,7 +68,9 @@ class RestaurantFragment() : Fragment() {
                     }
             spinnerPage.adapter = temp_adapter
         }
-
+        /**
+         * Setting up the adapter for the recyclerView
+         */
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
         adapter = RestaurantAdapter(daoViewModel, requireContext())
         favouritesAdapter = FavoritesAdapter(requireContext(), daoViewModel)
@@ -89,7 +97,9 @@ class RestaurantFragment() : Fragment() {
         val viewModelFactory = RestaurantViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantViewModel::class.java)
 
-
+        /**
+         * Filter by city and page
+         */
         spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -124,7 +134,9 @@ class RestaurantFragment() : Fragment() {
                 }
             }
         }
-
+        /**
+         * After filter it will load the restaurants
+         */
         viewModel.myResponseAll.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
                 if (response.body()?.restaurants!!.isNotEmpty()) {
@@ -137,6 +149,9 @@ class RestaurantFragment() : Fragment() {
             }
         })
 
+        /**
+         * Search by Restaurant Name
+         */
         search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }

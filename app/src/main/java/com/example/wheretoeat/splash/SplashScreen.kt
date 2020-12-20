@@ -30,6 +30,8 @@ class SplashScreen : AppCompatActivity() {
         val repository = RestaurantApiRepository()
         val viewModelFactory = RestaurantViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantViewModel::class.java)
+
+        //Getting Cities from API , so from now on you can filter with city
         viewModel.getCity()
         viewModel.myResponseCity.observe(this, Observer { response ->
             if (response.isSuccessful) {

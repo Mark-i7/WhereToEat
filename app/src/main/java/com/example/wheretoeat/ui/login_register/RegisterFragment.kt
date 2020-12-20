@@ -40,6 +40,9 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        /**
+         * Initializing UI elements
+         */
         val userName = view.findViewById<EditText>(R.id.user_name)
         val userAddress = view.findViewById<EditText>(R.id.user_adress)
         val userPhone = view.findViewById<EditText>(R.id.user_phone)
@@ -49,6 +52,9 @@ class RegisterFragment : Fragment() {
 
         val signupButton = view.findViewById<Button>(R.id.finish_registration)
 
+        /**
+         * Listener to Sign Up button
+         */
         signupButton.setOnClickListener {
             user = User(
                     userName.text.toString(),
@@ -58,6 +64,9 @@ class RegisterFragment : Fragment() {
                     userPassword.text.toString()
             )
 
+            /**
+             * If the registration was success it will add it to the DB and set the User Name
+             */
             if (isRegistered(user)) {
                 Toast.makeText(context, "You are a registered user ! Did you forgot your password?", Toast.LENGTH_LONG).show()
             } else {
@@ -77,6 +86,11 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    /**
+     * Check if the User was registered already
+     * @param user User
+     * @return Boolean
+     */
     private fun isRegistered(user: User): Boolean {
         for (u in users) {
             if ((u.email == user.email) && (u.password == user.password)) {

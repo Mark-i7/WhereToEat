@@ -50,6 +50,9 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.navigation_register)
         }
 
+        /**
+         * Listener to the Sign In Button
+         */
         signinButton.setOnClickListener {
             val currentUser = validateUser(userEmail.text.toString(), userPassword.text.toString())
             if (currentUser != null) {
@@ -63,6 +66,13 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    /**
+     * Saving the user's data to use it to display it on the profile fragment
+     * and check if the typed email&password are correct
+     * @param email String
+     * @param password String
+     * @return User?
+     */
     private fun validateUser(email: String, password: String): User? {
         for (i in users) {
             if (i.email == email && i.password == password) {

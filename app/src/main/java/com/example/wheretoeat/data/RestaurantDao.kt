@@ -11,6 +11,7 @@ import com.example.wheretoeat.models.UserPicture
 
 @Dao
 interface RestaurantDao {
+    //Favorites
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addFavRest(favorites: Favorites)
 

@@ -4,7 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,12 @@ class RestaurantAdapter(
         val love_it: ImageView = itemView.findViewById(R.id.love_it)
     }
 
+    /**
+     * Only 1x called when you need a new View
+     * @param parent ViewGroup
+     * @param viewType Int
+     * @return RestaurantViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
                 R.layout.list_item,
@@ -40,6 +47,12 @@ class RestaurantAdapter(
         return RestaurantViewHolder(itemView)
     }
 
+    /**
+     *  It is called by RecyclerView to display the data at the specified position.
+     *  This method is used to update the contents of the itemView
+     * @param holder RestaurantViewHolder
+     * @param position Int
+     */
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentItem = restList[position]
 
@@ -54,6 +67,9 @@ class RestaurantAdapter(
             holder.love_it.setImageResource(R.drawable.heart_before_tap)
         }
 
+        /**
+         * Add restaurant to favorites
+         */
         holder.love_it.setOnClickListener {
             currentItem.setLiked()
             holder.love_it.setBackgroundResource(R.drawable.heart_after_tap)
@@ -68,7 +84,9 @@ class RestaurantAdapter(
                     Snackbar.LENGTH_SHORT
             ).show()
         }
-
+        /**
+         * Remove restaurant from favorites
+         */
         holder.love_it.setOnLongClickListener {
             holder.love_it.setBackgroundResource(R.drawable.heart_before_tap)
             daoViewModel.deleteFavRestDB(currentItem.id)
@@ -80,6 +98,10 @@ class RestaurantAdapter(
             notifyDataSetChanged()
             true
         }
+
+        /**
+         * To pass restaurant's details{name,address,city etc] to Details Fragment
+         */
 
         holder.itemView.setOnClickListener {
             val bundle = bundleOf(
@@ -104,6 +126,7 @@ class RestaurantAdapter(
 
 
     override fun getItemCount() = restList.size
+
 
     fun setData(restaurants: MutableList<Restaurant>) {
         this.restList = restaurants

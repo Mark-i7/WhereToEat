@@ -33,7 +33,9 @@ class DetailsFragment : Fragment() {
     ): View {
         myView = inflater.inflate(R.layout.details_fragment, container, false)
 
-        //Getting the data from the adapter
+        /**
+         * Getting the data from the adapter
+         */
         val name = requireArguments().get("name").toString()
         val address = requireArguments().get("address").toString()
         val city = requireArguments().get("city").toString()
@@ -59,11 +61,18 @@ class DetailsFragment : Fragment() {
         myView.findViewById<TextView>(R.id.country).text = country
         myView.findViewById<TextView>(R.id.price).text = price
 
+        /**
+         * Setting up buttons for map ,to reaching the url and to call the restaurant
+         */
+
         val mapButton = myView.findViewById<ImageButton>(R.id.view_location_map)
         val callButton = myView.findViewById<ImageButton>(R.id.call_the_place)
         val reserveUrl = myView.findViewById<ImageView>(R.id.reserve_url)
         val mobileReservation = myView.findViewById<ImageView>(R.id.mobile_reserve)
 
+        /**
+         * Listener to Google Maps
+         */
         mapButton.setOnClickListener {
             val gmmIntentUri = Uri.parse("geo:$lat,$lng")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
@@ -71,12 +80,19 @@ class DetailsFragment : Fragment() {
             startActivity(mapIntent)
         }
 
+        /**
+         *Listener to Phone Numbers to call the restaurant
+         */
         callButton.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_DIAL
             intent.data = Uri.parse("tel:$phone")
             startActivity(intent)
         }
+
+        /**
+         * Listener for restaurant web page
+         */
         reserveUrl.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(reserve_url))
             startActivity(browserIntent)
@@ -94,6 +110,9 @@ class DetailsFragment : Fragment() {
         return myView
     }
 
+    /**
+     * Asking permission to use the gallery/camera
+     */
     private fun selectImageFromGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -112,13 +131,21 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * Function to choose image
+     */
     private fun pickImage() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, PICK_IMAGE)
     }
 
-    //requesting permission from the user
+    /**
+     * Requesting permission from the user
+     * @param requestCode Int
+     * @param permissions Array<out String>
+     * @param grantResults IntArray
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             PERMISSION_CODE -> {
@@ -129,6 +156,12 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * Set the Picture to the ImageView
+     * @param requestCode Int
+     * @param resultCode Int
+     * @param data Intent?
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
             imageView.setImageURI(data?.data)
