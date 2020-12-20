@@ -61,9 +61,7 @@
   <img src="https://user-images.githubusercontent.com/74512879/102714705-1dc94c00-42d9-11eb-8754-5069ee5dd4f3.png" width="30%" height="30%">
 </p>
 
-## Technical details ##
-
-#### Used Components:
+## Used Components: ##
 - Activity
 - Fragments
 - Constraint layout
