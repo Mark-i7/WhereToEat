@@ -1,4 +1,4 @@
-# WhereToEat? 
+# WhereToEat? :plate_with_cutlery: 
 ## An application for the peoples who lives in USA and can't decide where to go eat when they are hungry :hamburger: :pizza: :fries: :spaghetti: :cake:
 <p>
   The application contains a splash screen.
