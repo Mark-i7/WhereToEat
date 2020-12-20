@@ -1,6 +1,6 @@
 # WhereToEat?
 ## An application for the peoples who lives in USA and can't decide where to go eat when they are hungry
-#The application contains a splash screen.
+The application contains a splash screen.
 
 You need to sign in or if u don't have account you need to create one
 
@@ -40,11 +40,11 @@ At the right upper corner, on the appbar you get a delete icon if u want to dele
 - Navigation
 - Searchable Spinner
 ____________________________________________________________________________________________________________________________________
-# Used API link #
+## Used API link ##
 
 [API Restaurants](https://ratpark-api.imok.space/)
 
-# All rights reserved #
+## All rights reserved ##
 > :copyright: Sikó Márk Levente, Sapientia Hungarian University of Transylvania
 ## Contacts ##
 <sikomark.sl@gmail.com>
