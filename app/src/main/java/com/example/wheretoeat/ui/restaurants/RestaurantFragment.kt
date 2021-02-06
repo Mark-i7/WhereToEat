@@ -80,6 +80,9 @@ class RestaurantFragment() : Fragment() {
         restaurantList.layoutManager = LinearLayoutManager(activity)
         restaurantList.setHasFixedSize(true)
 
+        /**
+         * getting favourite ids
+         */
         if (MainActivity.isLoggedIn) {
             val favs = daoViewModel.getUserFavorites(Constants.USER_NAME)
 

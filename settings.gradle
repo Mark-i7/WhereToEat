@@ -1,2 +1,3 @@
+include ':images'
 include ':app'
 rootProject.name = "WhereToEat"

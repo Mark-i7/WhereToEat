@@ -14,8 +14,10 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.example.wheretoeat.MainActivity
 import com.example.wheretoeat.R
+import com.example.wheretoeat.adapters.FavoritesAdapter
 import com.example.wheretoeat.data.DaoViewModel
 import com.example.wheretoeat.models.User
+import com.example.wheretoeat.utils.Constants
 
 class LoginFragment : Fragment() {
     private val daoViewModel: DaoViewModel by activityViewModels()
@@ -31,6 +33,9 @@ class LoginFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
+        /**
+         * getting all users in a list
+         */
         allUsers = daoViewModel.readAllUsers
         allUsers.observe(viewLifecycleOwner, { us ->
             users = us
@@ -54,9 +59,21 @@ class LoginFragment : Fragment() {
          * Listener to the Sign In Button
          */
         signinButton.setOnClickListener {
+            //checking if the user is already registered
             val currentUser = validateUser(userEmail.text.toString(), userPassword.text.toString())
+
+            //if it passes it will be navigated to restaurants
             if (currentUser != null) {
                 MainActivity.isLoggedIn = true
+
+                // get the favorite id's  for the favs to be starred already when navigating at the restaurants page
+                val favs = daoViewModel.getUserFavorites(Constants.USER_NAME)
+
+                favs.observe(viewLifecycleOwner, { us ->
+                    Constants.favRestIds = us
+                    FavoritesAdapter.getFavRestListById(Constants.favRestIds)
+                })
+
                 findNavController().navigate(R.id.nav_restaurants, bundle)
             } else {
                 Toast.makeText(requireContext(), "Wrong email or password! Try again", Toast.LENGTH_SHORT).show()

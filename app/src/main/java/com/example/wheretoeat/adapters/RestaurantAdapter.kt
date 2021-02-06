@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wheretoeat.MainActivity
 import com.example.wheretoeat.R
 import com.example.wheretoeat.data.DaoViewModel
 import com.example.wheretoeat.models.Favorites
@@ -61,7 +63,7 @@ class RestaurantAdapter(
         holder.address.text = currentItem.address
         holder.price.text = currentItem.price.toString() + "$"
 
-        if (currentItem.liked) {
+        if (isFavoriteForCurr(currentItem)) {
             holder.love_it.setBackgroundResource(R.drawable.heart_after_tap)
         } else {
             holder.love_it.setImageResource(R.drawable.heart_before_tap)
@@ -70,32 +72,60 @@ class RestaurantAdapter(
         /**
          * Add restaurant to favorites
          */
+//        holder.love_it.setOnClickListener {
+//            currentItem.setLiked()
+//            holder.love_it.setBackgroundResource(R.drawable.heart_after_tap)
+//
+//            favorites = Favorites(currentItem.id, Constants.USER_NAME, currentItem.name)
+//            daoViewModel.addFavRestDB(favorites)
+//            notifyDataSetChanged()
+//
+//            Snackbar.make(
+//                    holder.itemView,
+//                    "Restaurant ${currentItem.name} added to favourites",
+//                    Snackbar.LENGTH_SHORT
+//            ).show()
+//        }
         holder.love_it.setOnClickListener {
-            currentItem.setLiked()
-            holder.love_it.setBackgroundResource(R.drawable.heart_after_tap)
-
-            favorites = Favorites(currentItem.id, Constants.USER_NAME, currentItem.name)
-            daoViewModel.addFavRestDB(favorites)
-            notifyDataSetChanged()
-
-            Snackbar.make(
-                    holder.itemView,
-                    "Restaurant ${currentItem.name} added to favourites",
-                    Snackbar.LENGTH_SHORT
-            ).show()
+            if (MainActivity.isLoggedIn) {
+                holder.love_it.setBackgroundResource(R.drawable.heart_after_tap)
+                favorites = Favorites(currentItem.id, Constants.USER_NAME,currentItem.name)
+                daoViewModel.addFavRestDB(favorites)
+                Snackbar.make(
+                        holder.itemView,
+                        "${currentItem.name} added to favourites",
+                        Snackbar.LENGTH_SHORT
+                ).show()
+            }
+            else {
+                Toast.makeText(context,"You can't add favorites! Please sign in!", Toast.LENGTH_LONG).show()
+            }
         }
         /**
          * Remove restaurant from favorites
          */
+//        holder.love_it.setOnLongClickListener {
+//            holder.love_it.setBackgroundResource(R.drawable.heart_before_tap)
+//            daoViewModel.deleteFavRestDB(currentItem.id)
+//            Snackbar.make(
+//                    holder.itemView,
+//                    "Restaurant ${currentItem.name} removed from favourites",
+//                    Snackbar.LENGTH_SHORT
+//            ).show()
+//            notifyDataSetChanged()
+//            true
+//        }
         holder.love_it.setOnLongClickListener {
-            holder.love_it.setBackgroundResource(R.drawable.heart_before_tap)
-            daoViewModel.deleteFavRestDB(currentItem.id)
-            Snackbar.make(
-                    holder.itemView,
-                    "Restaurant ${currentItem.name} removed from favourites",
-                    Snackbar.LENGTH_SHORT
-            ).show()
-            notifyDataSetChanged()
+            if(isFavoriteForCurr(currentItem)) {
+                daoViewModel.deleteFavRestDB(currentItem.id)
+                holder.love_it.setBackgroundResource(R.drawable.heart_before_tap)
+                Snackbar.make(
+                        holder.itemView,
+                        "${currentItem.name} removed from favourites",
+                        Snackbar.LENGTH_SHORT
+                ).show()
+                notifyDataSetChanged()
+            }
             true
         }
 
@@ -131,6 +161,20 @@ class RestaurantAdapter(
     fun setData(restaurants: MutableList<Restaurant>) {
         this.restList = restaurants
         notifyDataSetChanged()
+    }
+
+    /**
+     * @param rest a single restaurant object
+     * @return boolean `true` if the rest is favorite for the user
+     * @return boolean `false` if the rest is NOT favorite for the user
+     * */
+    private fun isFavoriteForCurr(rest:Restaurant) : Boolean{
+        for (i in FavoritesAdapter.favListRest) {
+            if (i.name == rest.name && i.id == rest.id) {
+                return true
+            }
+        }
+        return false
     }
 
 }
