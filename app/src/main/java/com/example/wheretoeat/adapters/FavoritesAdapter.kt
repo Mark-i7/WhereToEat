@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -46,7 +47,7 @@ class FavoritesAdapter(
                 R.layout.list_item_fav,
                 parent, false
         )
-        Companion.context = context
+        //Companion.context = context
         return FavoritesViewHolder(itemView)
     }
 
@@ -107,7 +108,7 @@ class FavoritesAdapter(
          * @param favRestId List<Long>
          */
         fun getFavRestListById(favRestId: List<Long>) {
-            val favRestMutableList: MutableList<Restaurant> = mutableListOf()
+            var favRestMutableList: MutableList<Restaurant> = mutableListOf()
             launch {
                 val repository = RestaurantApiRepository()
                 val viewModelFactory = RestaurantViewModelFactory(repository)
@@ -119,9 +120,19 @@ class FavoritesAdapter(
                             val responeBody = myResponseRestById.body()
                             if (responeBody != null) {
                                 favRestMutableList.add(responeBody)
+                            }else
+                            {
+                                Toast.makeText(
+                                    context,
+                                    "Cannot load favorites because of API!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                break
                             }
                         }
                     }
+                }else {
+                    favRestMutableList = emptyList<Restaurant>().toMutableList()
                 }
                 favListRest = favRestMutableList.toList()
             }
