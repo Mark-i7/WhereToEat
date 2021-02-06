@@ -12,7 +12,7 @@ import com.example.wheretoeat.models.UserPicture
 @Dao
 interface RestaurantDao {
     //Favorites
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addFavRest(favorites: Favorites)
 
     @Query("DELETE FROM favorites_table WHERE restId=:rId")

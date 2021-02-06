@@ -179,7 +179,3 @@ class RestaurantFragment() : Fragment() {
     }
 
 }
-
-
-
-

@@ -9,7 +9,7 @@ import com.example.wheretoeat.models.User
 import com.example.wheretoeat.models.UserPicture
 
 
-@Database(entities = [Favorites::class, User::class, UserPicture::class], version = 5, exportSchema = false)
+@Database(entities = [Favorites::class, User::class, UserPicture::class], version = 8, exportSchema = false)
 abstract class RestaurantDatabase : RoomDatabase() {
 
     abstract fun RestaurantDao(): RestaurantDao

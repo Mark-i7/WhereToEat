@@ -72,22 +72,12 @@ class RestaurantAdapter(
         /**
          * Add restaurant to favorites
          */
-//        holder.love_it.setOnClickListener {
-//            currentItem.setLiked()
-//            holder.love_it.setBackgroundResource(R.drawable.heart_after_tap)
-//
-//            favorites = Favorites(currentItem.id, Constants.USER_NAME, currentItem.name)
-//            daoViewModel.addFavRestDB(favorites)
-//            notifyDataSetChanged()
-//
-//            Snackbar.make(
-//                    holder.itemView,
-//                    "Restaurant ${currentItem.name} added to favourites",
-//                    Snackbar.LENGTH_SHORT
-//            ).show()
-//        }
+
         holder.love_it.setOnClickListener {
             if (MainActivity.isLoggedIn) {
+                if(isFavoriteForCurr(currentItem)){
+                    Toast.makeText(context,"This restaurant is already added in favorites!", Toast.LENGTH_LONG).show()
+                }else{
                 holder.love_it.setBackgroundResource(R.drawable.heart_after_tap)
                 favorites = Favorites(currentItem.id, Constants.USER_NAME,currentItem.name)
                 daoViewModel.addFavRestDB(favorites)
@@ -96,7 +86,7 @@ class RestaurantAdapter(
                         "${currentItem.name} added to favourites",
                         Snackbar.LENGTH_SHORT
                 ).show()
-            }
+            }}
             else {
                 Toast.makeText(context,"You can't add favorites! Please sign in!", Toast.LENGTH_LONG).show()
             }
@@ -104,17 +94,7 @@ class RestaurantAdapter(
         /**
          * Remove restaurant from favorites
          */
-//        holder.love_it.setOnLongClickListener {
-//            holder.love_it.setBackgroundResource(R.drawable.heart_before_tap)
-//            daoViewModel.deleteFavRestDB(currentItem.id)
-//            Snackbar.make(
-//                    holder.itemView,
-//                    "Restaurant ${currentItem.name} removed from favourites",
-//                    Snackbar.LENGTH_SHORT
-//            ).show()
-//            notifyDataSetChanged()
-//            true
-//        }
+
         holder.love_it.setOnLongClickListener {
             if(isFavoriteForCurr(currentItem)) {
                 daoViewModel.deleteFavRestDB(currentItem.id)
